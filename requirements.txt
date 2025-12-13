@@ -2,3 +2,4 @@ mcp
 mistralai
 requests
 uvicorn
+starlette
