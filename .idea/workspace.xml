@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50cc7179-17cb-481e-8245-74cc44be2d16" name="Changes" comment="Cloud MCP fixed for call">
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
+    <list default="true" id="50cc7179-17cb-481e-8245-74cc44be2d16" name="Changes" comment="server update">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weather_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/weather_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +142,23 @@
       <option name="project" value="LOCAL" />
       <updated>1765658940609</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Readme.md update">
+      <option name="closed" value="true" />
+      <created>1765659212979</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1765659212979</updated>
+    </task>
+    <task id="LOCAL-00010" summary="server update">
+      <option name="closed" value="true" />
+      <created>1765659410920</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1765659410920</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -150,6 +167,8 @@
     <MESSAGE value="Cloud MCP" />
     <MESSAGE value="Cloud MCP fixed" />
     <MESSAGE value="Cloud MCP fixed for call" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cloud MCP fixed for call" />
+    <MESSAGE value="Readme.md update" />
+    <MESSAGE value="server update" />
+    <option name="LAST_COMMIT_MESSAGE" value="server update" />
   </component>
 </project>
