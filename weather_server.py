@@ -4,10 +4,9 @@ from mcp.server import Server
 from mcp.server.sse import SseServerTransport
 from starlette.applications import Starlette
 from starlette.routing import Route
-from starlette.requests import Request
 import mcp.types as types
 
-# --- 1. CORE LOGIC (Your Weather Function) ---
+# --- 1. CORE LOGIC ---
 def get_weather_data(latitude: float, longitude: float, start_date: str, end_date: str) -> str:
     url = "https://archive-api.open-meteo.com/v1/archive"
     params = {
@@ -59,12 +58,22 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
 # --- 3. WEB HANDLERS (The Glue for Render) ---
 sse = SseServerTransport("/messages")
 
-async def handle_sse(request: Request):
-    async with sse.connect_sse(request.scope, request.receive, request._send) as streams:
+# CRITICAL FIX: We define these as RAW ASGI handlers (scope, receive, send).
+# We do NOT use 'request' objects, preventing Starlette from expecting a return value.
+
+async def handle_sse(scope, receive, send):
+    """
+    Standard ASGI handler for SSE.
+    Allows the MCP SDK to manage the connection directly.
+    """
+    async with sse.connect_sse(scope, receive, send) as streams:
         await server.run(streams[0], streams[1], server.create_initialization_options())
 
-async def handle_messages(request: Request):
-    await sse.handle_post_message(request.scope, request.receive, request._send)
+async def handle_messages(scope, receive, send):
+    """
+    Standard ASGI handler for POST messages.
+    """
+    await sse.handle_post_message(scope, receive, send)
 
 # This 'app' object is what Uvicorn will run
 starlette_app = Starlette(

@@ -13,7 +13,10 @@ from mcp.client.sse import sse_client
 # --- CONFIGURATION ---
 PAGE_TITLE = "Mistral MCP Agent"
 PAGE_ICON = "🌩️"
-MCP_SERVER_URL = "http://localhost:8000/sse"  # The address of our local server
+# MCP_SERVER_URL = "http://localhost:8000/sse"  # The address of our local server
+
+# NEW (Cloud)
+MCP_SERVER_URL = "https://agentic-ai-la-melee.onrender.com/sse"
 
 
 # --- HELPER: CONVERT MCP TOOLS TO MISTRAL TOOLS ---
