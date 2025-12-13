@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50cc7179-17cb-481e-8245-74cc44be2d16" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/AgenticAI.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/agentUI.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/weather_client.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/weather_server.py" afterDir="false" />
+    <list default="true" id="50cc7179-17cb-481e-8245-74cc44be2d16" name="Changes" comment="V01 MCP server on Cloud">
+      <change afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +22,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Gilles-TOST-Unlimited"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Gilles-TOST-Unlimited/agentic_ai_la-melee.git",
+    "accountId": "acf7ef9f-b375-4f08-a61b-3a37c714dfba"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -69,6 +71,19 @@
       <option name="presentableId" value="Default" />
       <updated>1765625141980</updated>
     </task>
+    <task id="LOCAL-00001" summary="V01 MCP server on Cloud">
+      <option name="closed" value="true" />
+      <created>1765654282036</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1765654282036</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="V01 MCP server on Cloud" />
+    <option name="LAST_COMMIT_MESSAGE" value="V01 MCP server on Cloud" />
   </component>
 </project>
