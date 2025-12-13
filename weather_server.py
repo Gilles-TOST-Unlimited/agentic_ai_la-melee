@@ -63,9 +63,9 @@ def get_historical_weather(latitude: float, longitude: float, start_date: str, e
 
 
 # --- SERVER ENTRY POINT ---
-# This allows you to run the file directly: `python weather_server.py`
 if __name__ == "__main__":
-    # We explicitly run on localhost:8000 using the SSE transport
-    # This prepares it for easy cloud deployment (e.g., behind Nginx or Load Balancer)
-    print("🌤️ Starting Weather MCP Server on http://localhost:8000/sse")
-    mcp.run(transport="sse")
+    # "0.0.0.0" is crucial for cloud deployment; it allows external access.
+    # We also specify port 8000 explicitly.
+    import uvicorn
+    print("🌤️ Starting Cloud Weather MCP Server...")
+    mcp.run(transport="sse", host="0.0.0.0", port=8000)
