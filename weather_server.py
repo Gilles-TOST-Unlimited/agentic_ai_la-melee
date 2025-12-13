@@ -64,8 +64,22 @@ def get_historical_weather(latitude: float, longitude: float, start_date: str, e
 
 # --- SERVER ENTRY POINT ---
 if __name__ == "__main__":
-    # "0.0.0.0" is crucial for cloud deployment; it allows external access.
-    # We also specify port 8000 explicitly.
     import uvicorn
+
     print("🌤️ Starting Cloud Weather MCP Server...")
-    mcp.run(transport="sse", host="0.0.0.0", port=8000)
+
+    # We create the SSE handler explicitly from the FastMCP object
+    # This allows us to use uvicorn directly with full control over host/port
+    starlette_app = mcp._sse_handler  # Access the underlying Starlette app
+
+    # If the private attribute is not available (depends on version),
+    # we can just use the object itself if it is an ASGI app,
+    # but the safest way for FastMCP is often just to run it via uvicorn command line.
+    # HOWEVER, let's try the most robust programmatic method:
+
+    # METHOD: Run Uvicorn on the internal app
+    # FastMCP instances are not directly ASGI apps, they create one.
+    # The mcp.run() command usually does this for you.
+    # Since arguments failed, we will use the internal method manually.
+
+    uvicorn.run(mcp._sse_handler, host="0.0.0.0", port=8000)

@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50cc7179-17cb-481e-8245-74cc44be2d16" name="Changes" comment="Cloud MCP">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="50cc7179-17cb-481e-8245-74cc44be2d16" name="Changes" comment="Cloud MCP fixed">
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,13 +101,22 @@
       <option name="project" value="LOCAL" />
       <updated>1765654979070</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Cloud MCP fixed">
+      <option name="closed" value="true" />
+      <created>1765655805420</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1765655805420</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="V01 MCP server on Cloud" />
     <MESSAGE value="Readme.md added" />
     <MESSAGE value="Cloud MCP" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cloud MCP" />
+    <MESSAGE value="Cloud MCP fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cloud MCP fixed" />
   </component>
 </project>
