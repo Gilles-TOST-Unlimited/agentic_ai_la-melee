@@ -3,7 +3,7 @@ import uvicorn
 from mcp.server import Server
 from mcp.server.sse import SseServerTransport
 from starlette.applications import Starlette
-from starlette.routing import Route
+from starlette.routing import Mount, Route  # Changed: Added Mount
 import mcp.types as types
 
 # --- 1. CORE LOGIC ---
@@ -58,28 +58,21 @@ async def handle_call_tool(name: str, arguments: dict | None) -> list[types.Text
 # --- 3. WEB HANDLERS (The Glue for Render) ---
 sse = SseServerTransport("/messages")
 
-# CRITICAL FIX: We define these as RAW ASGI handlers (scope, receive, send).
-# We do NOT use 'request' objects, preventing Starlette from expecting a return value.
-
+# RAW ASGI HANDLERS (These require 'Mount' to work correctly)
 async def handle_sse(scope, receive, send):
-    """
-    Standard ASGI handler for SSE.
-    Allows the MCP SDK to manage the connection directly.
-    """
     async with sse.connect_sse(scope, receive, send) as streams:
         await server.run(streams[0], streams[1], server.create_initialization_options())
 
 async def handle_messages(scope, receive, send):
-    """
-    Standard ASGI handler for POST messages.
-    """
     await sse.handle_post_message(scope, receive, send)
 
-# This 'app' object is what Uvicorn will run
+# STARLETTE APP
 starlette_app = Starlette(
     debug=True,
     routes=[
-        Route("/sse", endpoint=handle_sse),
-        Route("/messages", endpoint=handle_messages, methods=["POST"])
+        # FIX: Use Mount() instead of Route().
+        # This tells Starlette: "Pass the raw ASGI arguments (scope, receive, send)"
+        Mount("/sse", app=handle_sse),
+        Mount("/messages", app=handle_messages)
     ]
 )
