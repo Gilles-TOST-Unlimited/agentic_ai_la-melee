@@ -3,14 +3,14 @@
 This project demonstrates a modular AI Agent architecture using the **Model Context Protocol (MCP)**. It decouples the "Brain" (Mistral AI via Streamlit) from the "Body" (Weather Tool Server), enabling robust and scalable cloud deployment.
 
 The system consists of two distinct entities:
-1.  **Weather Server (`weather_server.py`)**: A standard MCP server hosted via **Starlette** and **Uvicorn**, exposing historical weather data.
+1.  **Weather Server (`weather_server.py`)**: A standard MCP server hosted via a **Pure ASGI** application (hosted by Uvicorn), exposing historical weather data.
 2.  **AI Client (`weather_client.py`)**: A Streamlit user interface that connects to the server, discovers available tools, and uses Mistral AI to answer questions.
 
 ## 🏗️ Architecture
 
 The system follows an asynchronous Client-Server model:
 
-* **Server**: Uses `Starlette` to create a standard ASGI application compatible with Cloud platforms (Render, AWS, etc.).
+* **Server**: Uses a **Pure ASGI** dispatcher to handle SSE connections and POST requests manually, ensuring compatibility with Cloud platforms (Render, AWS) by avoiding automatic redirects.
 * **Transport**: Communication via HTTP/SSE (Server-Sent Events).
 * **Client**: Streamlit connects to the remote (or local) URL and orchestrates the AI reasoning.
 
@@ -18,7 +18,7 @@ The system follows an asynchronous Client-Server model:
 
 ```text
 .
-├── weather_server.py    # MCP Server (Weather Logic + Starlette App)
+├── weather_server.py    # MCP Server (Weather Logic + Pure ASGI App)
 ├── weather_client.py    # Streamlit Client (Chat Interface + Agent Logic)
 ├── requirements.txt     # Python Dependencies
 ├── Dockerfile           # Configuration for Cloud Deployment (Render)
@@ -49,8 +49,9 @@ mcp
 mistralai>=1.0.0
 requests
 uvicorn
-starlette
 ```
+
+*(Note: `starlette` is no longer required for the server logic, but keeping it installed won't hurt.)*
 
 ## 💻 Local Execution
 
@@ -58,7 +59,7 @@ To test on your machine, run the Server and Client in two separate terminals.
 
 ### Terminal 1: Start the MCP Server
 
-We use `uvicorn` to serve the Starlette application defined in the script.
+We use `uvicorn` to serve the ASGI application defined in the script.
 
 ```bash
 uvicorn weather_server:starlette_app --reload --port 8000
@@ -108,25 +109,26 @@ MCP_SERVER_URL = "[https://my-weather-app.onrender.com/sse](https://my-weather-a
 
 ## 🧠 Technical Explanation
 
-### Why Starlette?
+### Why Pure ASGI?
 
-Instead of using the high-level `FastMCP` abstraction (which can hide critical implementation details for the cloud), we explicitly define a **Starlette** application.
+We initially used Starlette Routing, but it caused issues with Cloud load balancers and clients due to automatic `307 Temporary Redirects` (e.g., redirecting `/sse` to `/sse/`). This confused the MCP Client, causing it to POST messages to the wrong path.
 
-  * This creates a standard **ASGI** app (`starlette_app`).
-  * It allows `uvicorn` to find and execute the server without missing attribute errors.
-
-### Low-Level ASGI Handlers
-
-To avoid conflicts between Starlette and the MCP SDK, routes are defined as raw ASGI handlers:
+To fix this **permanently**, we replaced the routing layer with a **Pure ASGI Dispatcher**:
 
 ```python
-# Direct network stream management (scope, receive, send)
-async def handle_sse(scope, receive, send):
-    async with sse.connect_sse(scope, receive, send) as streams:
-        await server.run(...)
+async def starlette_app(scope, receive, send):
+    # Manual check prevents redirects and path stripping
+    if scope["path"] == "/sse":
+        ... # Handle Connection
+    if scope["path"] == "/messages":
+        ... # Handle Message
 ```
 
-This ensures the MCP SDK can write responses (202 Accepted, SSE stream) directly, bypassing Starlette's response validation and resolving the `TypeError: 'NoneType' object is not callable` error.
+This ensures that:
+
+1.  `/sse` is treated exactly as `/sse` (no redirects).
+2.  The server strictly controls the network stream.
+3.  Both the connection and the message submission happen on the exact paths the Client expects.
 
 ## 🤝 Contribution
 
@@ -135,5 +137,3 @@ Pull Requests are welcome. For major changes, please open an issue first to disc
 ## 📄 License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
-

@@ -3,3 +3,4 @@ mistralai
 requests
 uvicorn
 starlette
+matplotlib
